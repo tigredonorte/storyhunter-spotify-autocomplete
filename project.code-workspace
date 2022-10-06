@@ -1,0 +1,18 @@
+{
+	"folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "../../gorila/front/gorila-app"
+    },
+    {
+      "path": "../../gorila/front/gorila-base-components"
+    }
+  ],
+  "settings": {
+    "cSpell.words": [
+      "ngneat"
+    ]
+  }
+}

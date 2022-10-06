@@ -1,27 +1,38 @@
-# StoryhunterSpotifyAutocomplete
+# spotify-autocomplete
+We at Storyhunter are big fans of music and are always looking for something new to listen to. For this exercise, you will be using the Spotify public api to build out a search experience. 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.4.
+https://developer.spotify.com/documentation/web-api/
 
-## Development server
+This exercise is left fairly open by intention. Treat this as a production level feature where you will be assessed on both code quality as well as your ability to interpret and refine requirements. Be sure to structure your commits logically in such a manner that a fellow team member would fall into a pit of success if they were to have to modify your code. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Requirements
+As a user, I would like to: 
 
-## Code scaffolding
+* Enter text into an input field and be given a list of suggestions of artist, albums, and tracks that match my query
+* Be given continuously updated search suggestions as I type without having to wait until I've pressed `enter`, or paused my typing
+  * As an example, note how Google search provides continuous feedback while typing into their search field without waiting for a pause in input from the user
+* Be shown my search suggestions in a grid, separated by artist, albums, and tracks. Each grid item should show a relevant photo and text
+  * For artists, the image should be the artist photo and the text should be the artist name
+  * For albums, the image should be the album artwork and the text should be the album name
+  * For tracks, the image should be the album artwork on which the track appears, and the text should be the track name
+* Initially be shown at most 10 results per category
+* Be able to page through each category of results to be shown additional suggestions, 10 at a time
+* See relevant metadata when clicking on a search suggestion in either a sidebar or a modal, depending on screen width
+  * For artists, I would like to see the artist photo, the artist name, and a list of albums (both the album artwork and name) released by the artist 
+  * For albums, I would like to see the album artwork, the album name, the release date, and a list of tracks and track length of songs that appear on the album
+  * For tracks, I would like to see the album artwork on which the track appears, the name of the album, the release date of the album, the name of the track, and the track length
+* Have my search results formatted appropriately based on my screen size (i.e. this should be a responsive application). Grid size and breakpoints based on screen resolution are left up to you
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+You are free to use any framework or library of your choosing, with the exception of any spotify api wrappers. These endpoints are simple enough that you should be able to make the requests and parse the results without the aid of a third party library.
 
-## Build
+You do not need to support Internet Explorer. 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Acceptance Criteria
+* Application must satisify the above listed criteria
+* Applications must be well structured with clear separation of concerns. Code must be representative of production level quality. 
+* Application must contain documentation on how to build and run the app. Apps that do not build and run on our machines will not be considered. 
+* Commits must be clear in their intent and well structured
+* If you made any design decisions of note, please document them with rational as to why that decision was made
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Other Considerations
+* Spotify will throttle their api if you make too many requests in a 30 second period. How would you avoid making too many requests, and how would you handle a `429` if received?
