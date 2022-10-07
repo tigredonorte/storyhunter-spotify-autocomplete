@@ -1,3 +1,6 @@
+- Using spotify API authorization for code flow https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
+- Using angular library for requests: HttpClient. It is the recommended for angular team
+
 # spotify-autocomplete
 We at Storyhunter are big fans of music and are always looking for something new to listen to. For this exercise, you will be using the Spotify public api to build out a search experience. 
 

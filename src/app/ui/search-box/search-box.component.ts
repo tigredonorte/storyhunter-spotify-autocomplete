@@ -1,24 +1,22 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
-import { debounceTime } from 'rxjs'
 
 @UntilDestroy()
 @Component({
   selector: 'sthtr-search-box',
   templateUrl: './search-box.component.html',
   styleUrls: ['./search-box.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBoxComponent implements OnInit {
-
   public searchControl = new FormControl('');
-  constructor() { }
 
-  ngOnInit(): void {
-    this.searchControl.valueChanges.pipe(untilDestroyed(this), debounceTime(500)).subscribe(it => {
-      console.log(it)
-    })
+  @Output() public searchChanged = new EventEmitter<string>();
+
+  public ngOnInit(): void {
+    this.searchControl.valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((str) => this.searchChanged.emit(str || ''));
   }
-
 }

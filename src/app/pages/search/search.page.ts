@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { take } from 'rxjs'
+import { SpotifyService } from 'src/app/services/spotify.service'
 
 @Component({
   selector: 'sthtr-meu-component1',
@@ -6,11 +8,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
   styleUrls: ['./search.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
 
-  constructor() { }
+  public results: any[] = []
+  constructor(private spotifyService: SpotifyService) { }
 
-  ngOnInit(): void {
+  public search(str: string) {
+    this.spotifyService.search(str ?? '').pipe(take(1)).subscribe(it => this.results = it)
   }
 
 }

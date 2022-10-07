@@ -8,6 +8,9 @@
     },
     {
       "path": "../../gorila/front/gorila-base-components"
+    },
+    {
+      "path": "../../playground/odonto-app"
     }
   ],
   "settings": {
