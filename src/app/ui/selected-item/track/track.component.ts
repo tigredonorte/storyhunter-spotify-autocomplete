@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core'
 import { Track } from 'src/app/services/spotify.model'
 
 @Component({
@@ -8,14 +8,8 @@ import { Track } from 'src/app/services/spotify.model'
   encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TrackComponent implements OnInit {
+export class TrackComponent {
 
   @Input() public track?: Track;
-
-  constructor() { }
-
-  ngOnInit(): void {
-    console.log(this.track)
-  }
 
 }

@@ -1,13 +1,12 @@
 <sthtr-header [title]="album?.name" [image]="album?.images?.[0]?.url"></sthtr-header>
 
 <mat-card>
-  <mat-card-title>Tracks</mat-card-title>
+  <sthtr-properties title="Release Date">{{album?.release_date | date}}</sthtr-properties>
+  <sthtr-properties title="Tracks"></sthtr-properties>
   <mat-card-content>
-    <div *ngFor="let track of album?.tracks?.items">
-      <sthtr-search-result-item (click)="selectTrack(track)"
-        [image]="track?.album?.images?.[0]?.url"
-        [name]="track.name"
-      ></sthtr-search-result-item>
+    <div *ngFor="let track of album?.tracks?.items" (click)="selectTrack(track)" class="track">
+      <div>{{track.name}} </div>
+      <div>{{track.duration_ms | duration}}</div>
     </div>
   </mat-card-content>
 </mat-card>

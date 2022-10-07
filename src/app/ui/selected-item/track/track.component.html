@@ -2,12 +2,6 @@
 
 <div class="content">
   <sthtr-properties title="Album Name">{{track?.album?.name}}</sthtr-properties>
-  <sthtr-properties title="Release Date">{{track?.album?.release_date}}</sthtr-properties>
-  <sthtr-properties title="Duration">{{track?.duration_ms}}</sthtr-properties>
-  <!-- <sthtr-properties title="Preview" *ngIf="track?.preview_url">
-    <audio controls>
-      <source [src]="track?.preview_url" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-  </sthtr-properties> -->
+  <sthtr-properties title="Release Date">{{track?.album?.release_date | date}}</sthtr-properties>
+  <sthtr-properties title="Duration">{{track?.duration_ms | duration}}</sthtr-properties>
 </div>

@@ -2,3 +2,10 @@
   display: grid;
   grid-template-columns: .25fr .75fr;
 }
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+}

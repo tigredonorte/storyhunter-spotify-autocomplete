@@ -15,6 +15,14 @@ export class SpotifyService {
 
   constructor(private http: HttpClient) {}
 
+  public getTrack(id: string): Observable<any> {
+    if (id === '') {
+      return new BehaviorSubject({}).asObservable()
+    }
+    const url = `${environment.spotifyUrl}tracks/${id}`;
+    return this.http.get(url, { headers: this.getHeaders() });
+  }
+
   public getArtist(id: string): Observable<any> {
     if (id === '') {
       return new BehaviorSubject({}).asObservable()

@@ -18,6 +18,7 @@ export class SearchComponent {
   public tracks?: Results['tracks']['items'];
   public selected?: Item;
   public selectedType?: 'artist' | 'track' | 'album';
+  public loading = false;
 
   constructor(private spotifyService: SpotifyService, private cd: ChangeDetectorRef, private router: Router) { }
 
@@ -31,23 +32,34 @@ export class SearchComponent {
     })
   }
 
-  public setSelected = (data: { type: 'artist' | 'track' | 'album', item: Item }) => {
+  public setSelected = (data: { type: 'artist' | 'track' | 'album', item: Item }, forceLoad = false) => {
     this.selectedType = undefined;
     this.selected = undefined;
+    this.loading = true;
     switch (data.type) {
       case 'artist':
         return this.spotifyService.getArtist(data.item.id).subscribe(result => {
           this.selected = { ...data.item, albums: result };
           this.selectedType = data.type;
+          this.loading = false;
         })
       case 'track':
-        this.selected = data.item;
-        this.selectedType = data.type;
-        return;
+        if (forceLoad) {
+          this.selected = data.item;
+          this.selectedType = data.type;
+          this.loading = false;
+          return
+        }
+        return this.spotifyService.getTrack(data.item.id).subscribe(result => {
+          this.selected = result;
+          this.selectedType = data.type;
+          this.loading = false;
+        })
       case 'album':
         return this.spotifyService.getAlbum(data.item.id).subscribe(result => {
           this.selected = { ...data.item, tracks: result };
           this.selectedType = data.type;
+          this.loading = false;
         })
     }
   }
