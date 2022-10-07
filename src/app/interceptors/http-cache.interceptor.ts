@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
-import { tap } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 
 @Injectable()
 export class HttpCacheInterceptor implements HttpInterceptor {
@@ -22,11 +22,11 @@ export class HttpCacheInterceptor implements HttpInterceptor {
       console.warn('error retrieving cache')
     }
     return next.handle(req).pipe(
-      tap(stateEvent => {
+      map(stateEvent => {
         if(stateEvent instanceof HttpResponse) {
           localStorage.setItem(req.url, JSON.stringify(stateEvent))
-          // this.cache.set(req, stateEvent.clone())
         }
+        return stateEvent;
       })
     )
   }

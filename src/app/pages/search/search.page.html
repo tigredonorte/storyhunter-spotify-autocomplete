@@ -1,14 +1,10 @@
-<div class="left">
-  <div *ngIf="loading" class="loading">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-  </div>
-  <ng-container *ngIf="!loading">
-    <ng-container [ngSwitch]="selectedType">
-      <sthtr-album *ngSwitchCase="'album'" [album]="$any(selected)" (selected)="setSelected($event, false)"></sthtr-album>
-      <sthtr-artist *ngSwitchCase="'artist'" [artist]="$any(selected)" (selected)="setSelected($event, false)"></sthtr-artist>
-      <sthtr-track *ngSwitchCase="'track'" [track]="$any(selected)"></sthtr-track>
-    </ng-container>
-  </ng-container>
+<div class="left" *ngIf="(sizes$ | async)?.['for-tablet-landscape-down']">
+  <sthtr-left 
+    [selected]="(selected$ | async) || undefined"
+    [selectedType]="(selectedType$ | async) || undefined"
+    [loading]="(loading$ | async) || false"
+    (onSelect)="setSelected($event, false)"
+  ></sthtr-left>
 </div>
 <div class="right">
   <sthtr-search-box (searchChanged)="search($event)"></sthtr-search-box>
@@ -16,6 +12,6 @@
     [albums]="albums"
     [artists]="artists"
     [tracks]="tracks"
-    (selected)="setSelected($event, true)"
+    (onSelect)="setSelected($event, true)"
   ></sthtr-search-result>
 </div>

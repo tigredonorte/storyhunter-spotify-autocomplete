@@ -1,6 +1,21 @@
+@import  "/src/scss/breakpoints.scss";
+
 :host {
   display: grid;
   grid-template-columns: .25fr .75fr;
+  
+  // @include for-desktop-down {
+  //   grid-template-columns: .4fr .6fr;
+  // }
+  @include for-tablet-landscape-down {
+    grid-template-columns: 1fr;
+  }
+}
+
+.left {
+  @include for-tablet-landscape-down {
+    display: none;
+  }
 }
 
 .loading {

@@ -1,0 +1,10 @@
+<div *ngIf="loading" class="loading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<ng-container *ngIf="!loading">
+  <ng-container [ngSwitch]="selectedType">
+    <sthtr-album *ngSwitchCase="'album'" [album]="$any(selected)" (selected)="setSelected($event)"></sthtr-album>
+    <sthtr-artist *ngSwitchCase="'artist'" [artist]="$any(selected)" (selected)="setSelected($event)"></sthtr-artist>
+    <sthtr-track *ngSwitchCase="'track'" [track]="$any(selected)"></sthtr-track>
+  </ng-container>
+</ng-container>

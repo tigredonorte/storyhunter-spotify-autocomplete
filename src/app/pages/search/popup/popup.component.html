@@ -1,0 +1,6 @@
+<sthtr-left 
+  [selected]="(data.selected$ | async) || undefined"
+  [selectedType]="(data.selectedType$ | async) || undefined"
+  [loading]="(data.loading$ | async) || false"
+  (onSelect)="setSelected($event)"
+></sthtr-left>

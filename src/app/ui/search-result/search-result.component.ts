@@ -14,10 +14,10 @@ export class SearchResultComponent {
   @Input() public artists?: Results['artists']['items']
   @Input() public tracks?: Results['tracks']['items']
 
-  @Output() public selected = new EventEmitter()
+  @Output() public onSelect = new EventEmitter()
 
   public select(title: string, item: Album | Track | Artist) {
-    this.selected.emit({ type: title, item })
+    this.onSelect.emit({ type: title, item })
   }
 
 }

@@ -57,7 +57,7 @@ export class SpotifyService {
   private getHeaders = () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      throw new Error('Not Authenticated');
+      this.authorize()
     }
     return new HttpHeaders({
       Accept: 'application/json',
