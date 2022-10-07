@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core'
 import { take } from 'rxjs'
+import { Album, Artist, Results, Track } from 'src/app/services/spotify.model'
 import { SpotifyService } from 'src/app/services/spotify.service'
 
 @Component({
@@ -10,11 +11,25 @@ import { SpotifyService } from 'src/app/services/spotify.service'
 })
 export class SearchComponent {
 
-  public results: any[] = []
-  constructor(private spotifyService: SpotifyService) { }
+  public currentSearch = '';
+  public albums?: Results['albums']['items'];
+  public artists?: Results['artists']['items'];
+  public tracks?: Results['tracks']['items'];
+
+  constructor(private spotifyService: SpotifyService, private cd: ChangeDetectorRef) { }
 
   public search(str: string) {
-    this.spotifyService.search(str ?? '').pipe(take(1)).subscribe(it => this.results = it)
+    this.currentSearch = str;
+    this.spotifyService.search(str ?? '').pipe(take(1)).subscribe(it => {
+      this.albums = it?.albums?.items || [];
+      this.tracks = it?.tracks?.items || [];
+      this.artists = it?.artists?.items || [];
+      this.cd.markForCheck();
+    })
+  }
+
+  public setSelected(data: { type: keyof Results, item: Album | Track | Artist }) {
+    console.log({ data })
   }
 
 }

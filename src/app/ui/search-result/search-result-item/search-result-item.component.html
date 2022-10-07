@@ -1,0 +1,4 @@
+<div class="result-item" (mouseover)="hover=true" (mouseleave)="hover=false">
+  <img [src]="image" />
+  <div class="title" [ngClass]="{'mat-accent': hover}">{{name}}</div>
+</div>

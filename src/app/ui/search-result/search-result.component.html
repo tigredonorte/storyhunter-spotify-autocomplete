@@ -1,0 +1,41 @@
+<mat-card>
+  <mat-card-title>Artists</mat-card-title>
+  <mat-card-content>
+    <div *ngFor="let artist of artists">
+      <sthtr-search-result-item (click)="select('artist', artist)"
+        [image]="artist?.images?.[0]?.url"
+        [name]="artist.name"
+      ></sthtr-search-result-item>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-title>Albums</mat-card-title>
+  <mat-card-content>
+    <div *ngFor="let album of albums">
+      <sthtr-search-result-item (click)="select('album', album)"
+        [image]="album?.images?.[0]?.url"
+        [name]="album.name"
+      ></sthtr-search-result-item>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-title>Tracks</mat-card-title>
+  <mat-card-content>
+    <div *ngFor="let track of tracks">
+      <sthtr-search-result-item (click)="select('track', track)"
+        [image]="track?.album?.images?.[0]?.url"
+        [name]="track.name"
+      ></sthtr-search-result-item>
+    </div>
+  </mat-card-content>
+</mat-card>
+<!-- 
+<h4>Albums</h4>
+{{results?.albums | json}}
+<hr>
+<h4>Tracks</h4>
+{{results?.tracks | json}} -->

@@ -1,7 +1,14 @@
+@import  "/src/scss/breakpoints.scss";
+
 :host {
   display: block;
+  margin: 10px 10px 0px 10px;
 }
 
 mat-form-field {
-  width: 400px;
+  width: 100%;
+  
+  @include for-tablet-landscape-up {
+    width: 400px;
+  }
 }

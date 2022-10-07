@@ -1,3 +1,7 @@
 <sthtr-search-box (searchChanged)="search($event)"></sthtr-search-box>
-
-{{results | json}}
+<sthtr-search-result *ngIf="currentSearch.length" 
+  [albums]="albums"
+  [artists]="artists"
+  [tracks]="tracks"
+  (selected)="setSelected($event)"
+></sthtr-search-result>

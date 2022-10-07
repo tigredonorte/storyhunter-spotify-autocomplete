@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
 
 export interface SpotifyParamType {
@@ -16,6 +16,9 @@ export class SpotifyService {
   constructor(private http: HttpClient) {}
 
   public search(str: string, page = 0): Observable<any> {
+    if (str === '') {
+      return new BehaviorSubject({}).asObservable()
+    }
     const options = [
       `q=${str}`,
       'type=album,artist,track',
