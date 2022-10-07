@@ -1,0 +1,13 @@
+<sthtr-header [title]="artist?.name" [image]="artist?.images?.[0]?.url"></sthtr-header>
+
+<mat-card>
+  <mat-card-title>Albums</mat-card-title>
+  <mat-card-content>
+    <div *ngFor="let album of artist?.albums?.items">
+      <sthtr-search-result-item (click)="selectAlbum(album)"
+        [image]="album?.images?.[0]?.url"
+        [name]="album.name"
+      ></sthtr-search-result-item>
+    </div>
+  </mat-card-content>
+</mat-card>

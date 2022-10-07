@@ -17,7 +17,7 @@ export class SearchResultComponent {
   @Output() public selected = new EventEmitter()
 
   public select(title: string, item: Album | Track | Artist) {
-    this.selected.emit({ title, item })
+    this.selected.emit({ type: title, item })
   }
 
 }

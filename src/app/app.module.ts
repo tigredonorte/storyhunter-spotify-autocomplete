@@ -11,8 +11,13 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { SearchComponent } from './pages/search/search.page'
 import { SearchBoxComponent } from './ui/search-box/search-box.component'
-import { SearchResultComponent } from './ui/search-result/search-result.component';
 import { SearchResultItemComponent } from './ui/search-result/search-result-item/search-result-item.component'
+import { SearchResultComponent } from './ui/search-result/search-result.component'
+import { AlbumComponent } from './ui/selected-item/album/album.component'
+import { ArtistComponent } from './ui/selected-item/artist/artist.component'
+import { TrackComponent } from './ui/selected-item/track/track.component';
+import { HeaderComponent } from './ui/selected-item/header/header.component';
+import { PropertiesComponent } from './ui/properties/properties.component'
 
 @NgModule({
   declarations: [
@@ -20,7 +25,12 @@ import { SearchResultItemComponent } from './ui/search-result/search-result-item
     SearchComponent,
     SearchBoxComponent,
     SearchResultComponent,
-    SearchResultItemComponent
+    SearchResultItemComponent,
+    ArtistComponent,
+    AlbumComponent,
+    TrackComponent,
+    HeaderComponent,
+    PropertiesComponent
   ],
   imports: [
     BrowserModule,

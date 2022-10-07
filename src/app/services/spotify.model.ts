@@ -5,20 +5,29 @@ interface Image {
 }
 
 export interface Album {
-  release_date: string;
+  id: string;
   name: string;
-  images: Image[]
+  release_date: string;
+  images: Image[];
+  tracks?: { items: Track[] };
 }
 
 export interface Artist {
+  id: string;
   name: string;
-  images: Image[]
+  images: Image[];
+  albums?: { items: Album[] };
 }
 
 export interface Track {
+  id: string;
   name: string;
+  preview_url: string;
   album: Album;
+  duration_ms?: string;
 }
+
+export type Item = Album | Artist | Track
 
 export interface Results {
   albums: {

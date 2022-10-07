@@ -1,7 +1,16 @@
-<sthtr-search-box (searchChanged)="search($event)"></sthtr-search-box>
-<sthtr-search-result *ngIf="currentSearch.length" 
-  [albums]="albums"
-  [artists]="artists"
-  [tracks]="tracks"
-  (selected)="setSelected($event)"
-></sthtr-search-result>
+<div class="left">
+  <ng-container [ngSwitch]="selectedType">
+    <sthtr-album *ngSwitchCase="'album'" [album]="$any(selected)" (selected)="setSelected($event)"></sthtr-album>
+    <sthtr-artist *ngSwitchCase="'artist'" [artist]="$any(selected)" (selected)="setSelected($event)"></sthtr-artist>
+    <sthtr-track *ngSwitchCase="'track'" [track]="$any(selected)"></sthtr-track>
+  </ng-container>
+</div>
+<div class="right">
+  <sthtr-search-box (searchChanged)="search($event)"></sthtr-search-box>
+  <sthtr-search-result *ngIf="currentSearch.length" 
+    [albums]="albums"
+    [artists]="artists"
+    [tracks]="tracks"
+    (selected)="setSelected($event)"
+  ></sthtr-search-result>
+</div>

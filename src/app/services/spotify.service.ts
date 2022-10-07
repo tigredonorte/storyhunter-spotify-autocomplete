@@ -15,15 +15,30 @@ export class SpotifyService {
 
   constructor(private http: HttpClient) {}
 
+  public getArtist(id: string): Observable<any> {
+    if (id === '') {
+      return new BehaviorSubject({}).asObservable()
+    }
+    const url = `${environment.spotifyUrl}artists/${id}/albums`;
+    return this.http.get(url, { headers: this.getHeaders() });
+  }
+
+  public getAlbum(id: string): Observable<any> {
+    if (id === '') {
+      return new BehaviorSubject({}).asObservable()
+    }
+    const url = `${environment.spotifyUrl}albums/${id}/tracks`;
+    return this.http.get(url, { headers: this.getHeaders() });
+  }
+
   public search(str: string, page = 0): Observable<any> {
     if (str === '') {
-      return new BehaviorSubject({}).asObservable()
+      return new BehaviorSubject({}).asObservable();
     }
     const options = [
       `q=${str}`,
       'type=album,artist,track',
       'include_external=audio',
-      'market=BR',
       `limit=${this.pageSize}`,
       `offset=${this.pageSize * page}`,
     ];

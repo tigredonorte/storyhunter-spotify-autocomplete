@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core'
+import { Router } from '@angular/router'
 import { take } from 'rxjs'
-import { Album, Artist, Results, Track } from 'src/app/services/spotify.model'
+import { Item, Results } from 'src/app/services/spotify.model'
 import { SpotifyService } from 'src/app/services/spotify.service'
 
 @Component({
@@ -15,8 +16,10 @@ export class SearchComponent {
   public albums?: Results['albums']['items'];
   public artists?: Results['artists']['items'];
   public tracks?: Results['tracks']['items'];
+  public selected?: Item;
+  public selectedType?: 'artist' | 'track' | 'album';
 
-  constructor(private spotifyService: SpotifyService, private cd: ChangeDetectorRef) { }
+  constructor(private spotifyService: SpotifyService, private cd: ChangeDetectorRef, private router: Router) { }
 
   public search(str: string) {
     this.currentSearch = str;
@@ -28,8 +31,25 @@ export class SearchComponent {
     })
   }
 
-  public setSelected(data: { type: keyof Results, item: Album | Track | Artist }) {
-    console.log({ data })
+  public setSelected = (data: { type: 'artist' | 'track' | 'album', item: Item }) => {
+    this.selectedType = undefined;
+    this.selected = undefined;
+    switch (data.type) {
+      case 'artist':
+        return this.spotifyService.getArtist(data.item.id).subscribe(result => {
+          this.selected = { ...data.item, albums: result };
+          this.selectedType = data.type;
+        })
+      case 'track':
+        this.selected = data.item;
+        this.selectedType = data.type;
+        return;
+      case 'album':
+        return this.spotifyService.getAlbum(data.item.id).subscribe(result => {
+          this.selected = { ...data.item, tracks: result };
+          this.selectedType = data.type;
+        })
+    }
   }
 
 }
