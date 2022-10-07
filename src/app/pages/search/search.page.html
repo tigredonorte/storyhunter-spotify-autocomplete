@@ -13,5 +13,7 @@
     [artists]="artists"
     [tracks]="tracks"
     (onSelect)="setSelected($event, true)"
+    (nextPage)="nextPage($event)"
+    (prevPage)="prevPage($event)"
   ></sthtr-search-result>
 </div>

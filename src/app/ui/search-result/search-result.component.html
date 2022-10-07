@@ -7,6 +7,14 @@
         [name]="artist.name"
       ></sthtr-search-result-item>
     </div>
+    <div class="button_container">
+      <button mat-icon-button (click)="prevPage.emit('artist')">
+        <mat-icon><</mat-icon>
+      </button>
+      <button mat-icon-button (click)="nextPage.emit('artist')">
+        <mat-icon>></mat-icon>
+      </button>
+    </div>
   </mat-card-content>
 </mat-card>
 
@@ -18,6 +26,14 @@
         [image]="album?.images?.[0]?.url"
         [name]="album.name"
       ></sthtr-search-result-item>
+    </div>
+    <div class="button_container">
+      <button mat-icon-button (click)="prevPage.emit('album')">
+        <mat-icon><</mat-icon>
+      </button>
+      <button mat-icon-button (click)="nextPage.emit('album')">
+        <mat-icon>></mat-icon>
+      </button>
     </div>
   </mat-card-content>
 </mat-card>
@@ -31,11 +47,14 @@
         [name]="track.name"
       ></sthtr-search-result-item>
     </div>
+    
+    <div class="button_container">
+      <button mat-icon-button (click)="prevPage.emit('track')">
+        <mat-icon><</mat-icon>
+      </button>
+      <button mat-icon-button (click)="nextPage.emit('track')">
+        <mat-icon>></mat-icon>
+      </button>
+    </div>
   </mat-card-content>
 </mat-card>
-<!-- 
-<h4>Albums</h4>
-{{results?.albums | json}}
-<hr>
-<h4>Tracks</h4>
-{{results?.tracks | json}} -->

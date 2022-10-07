@@ -28,6 +28,7 @@ export interface Track {
 }
 
 export type Item = Album | Artist | Track
+export type ItemType = 'artist' | 'track' | 'album'
 
 export interface Results {
   albums: {

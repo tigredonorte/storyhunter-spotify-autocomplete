@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
+import { ItemType } from './spotify.model'
 
 export interface SpotifyParamType {
   access_token: string;
@@ -39,13 +40,14 @@ export class SpotifyService {
     return this.http.get(url, { headers: this.getHeaders() });
   }
 
-  public search(str: string, page = 0): Observable<any> {
+  public search(str: string, page = 0, type?: ItemType): Observable<any> {
+    const searchType = (!type) ? 'album,artist,track' : type;
     if (str === '') {
       return new BehaviorSubject({}).asObservable();
     }
     const options = [
       `q=${str}`,
-      'type=album,artist,track',
+      `type=${searchType}`,
       'include_external=audio',
       `limit=${this.pageSize}`,
       `offset=${this.pageSize * page}`,

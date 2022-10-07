@@ -5,7 +5,7 @@ import {
 } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { BehaviorSubject, take } from 'rxjs'
-import { Item, Results } from 'src/app/services/spotify.model'
+import { Item, ItemType, Results } from 'src/app/services/spotify.model'
 import { SpotifyService } from 'src/app/services/spotify.service'
 import { WindowService } from 'src/app/services/window.service'
 import { PopupComponent } from './popup/popup.component'
@@ -21,9 +21,10 @@ export class SearchComponent {
   public albums?: Results['albums']['items'];
   public artists?: Results['artists']['items'];
   public tracks?: Results['tracks']['items'];
+  public page = 0;
 
   public selected$? = new BehaviorSubject<Item | undefined>(undefined);
-  public selectedType$? = new BehaviorSubject< 'artist' | 'track' | 'album' | undefined>(undefined);
+  public selectedType$? = new BehaviorSubject< ItemType | undefined>(undefined);
   public loading$ = new BehaviorSubject<boolean>(false);
   public sizes$ = this.windowService.getSize$()
 
@@ -34,21 +35,39 @@ export class SearchComponent {
     public dialog: MatDialog
   ) {}
 
-  public search(str: string) {
+  public prevPage = (type: ItemType) => {
+    if (this.page - 1 >= 0) {
+      this.page--;
+      this.search(this.currentSearch, type);
+    }
+  }
+
+  public nextPage = (type: ItemType) => {
+    this.page++;
+    this.search(this.currentSearch, type);
+  }
+
+  public search(str: string, type?: ItemType) {
     this.currentSearch = str;
     this.spotifyService
-      .search(str ?? '')
+      .search(str ?? '', this.page, type)
       .pipe(take(1))
       .subscribe((it) => {
-        this.albums = it?.albums?.items || [];
-        this.tracks = it?.tracks?.items || [];
-        this.artists = it?.artists?.items || [];
+        if (!type || type === 'album') {
+          this.albums = it?.albums?.items || [];
+        }
+        if (!type || type === 'track') {
+          this.tracks = it?.tracks?.items || [];
+        }
+        if (!type || type === 'artist') {
+          this.artists = it?.artists?.items || [];
+        }
         this.cd.markForCheck();
       });
   }
 
   public setSelected = (
-    data: { type: 'artist' | 'track' | 'album'; item: Item },
+    data: { type: ItemType; item: Item },
     forceLoad = false
   ) => {
     this.openDialog();

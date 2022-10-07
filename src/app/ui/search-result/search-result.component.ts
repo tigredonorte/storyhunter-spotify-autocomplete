@@ -15,6 +15,8 @@ export class SearchResultComponent {
   @Input() public tracks?: Results['tracks']['items']
 
   @Output() public onSelect = new EventEmitter()
+  @Output() public prevPage = new EventEmitter()
+  @Output() public nextPage = new EventEmitter()
 
   public select(title: string, item: Album | Track | Artist) {
     this.onSelect.emit({ type: title, item })
