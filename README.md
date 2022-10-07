@@ -1,41 +1,13 @@
-- Using spotify API authorization for code flow https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
-- Using angular library for requests: HttpClient. It is the recommended for angular team
+#running the code
+- clone this repository
+- run pnpm install (https://pnpm.io/)
+- run pnpm start
 
-# spotify-autocomplete
-We at Storyhunter are big fans of music and are always looking for something new to listen to. For this exercise, you will be using the Spotify public api to build out a search experience. 
+#considerations
 
-https://developer.spotify.com/documentation/web-api/
-
-This exercise is left fairly open by intention. Treat this as a production level feature where you will be assessed on both code quality as well as your ability to interpret and refine requirements. Be sure to structure your commits logically in such a manner that a fellow team member would fall into a pit of success if they were to have to modify your code. 
-
-## Requirements
-As a user, I would like to: 
-
-* Enter text into an input field and be given a list of suggestions of artist, albums, and tracks that match my query
-* Be given continuously updated search suggestions as I type without having to wait until I've pressed `enter`, or paused my typing
-  * As an example, note how Google search provides continuous feedback while typing into their search field without waiting for a pause in input from the user
-* Be shown my search suggestions in a grid, separated by artist, albums, and tracks. Each grid item should show a relevant photo and text
-  * For artists, the image should be the artist photo and the text should be the artist name
-  * For albums, the image should be the album artwork and the text should be the album name
-  * For tracks, the image should be the album artwork on which the track appears, and the text should be the track name
-* Initially be shown at most 10 results per category
-* Be able to page through each category of results to be shown additional suggestions, 10 at a time
-* See relevant metadata when clicking on a search suggestion in either a sidebar or a modal, depending on screen width
-  * For artists, I would like to see the artist photo, the artist name, and a list of albums (both the album artwork and name) released by the artist 
-  * For albums, I would like to see the album artwork, the album name, the release date, and a list of tracks and track length of songs that appear on the album
-  * For tracks, I would like to see the album artwork on which the track appears, the name of the album, the release date of the album, the name of the track, and the track length
-* Have my search results formatted appropriately based on my screen size (i.e. this should be a responsive application). Grid size and breakpoints based on screen resolution are left up to you
-
-You are free to use any framework or library of your choosing, with the exception of any spotify api wrappers. These endpoints are simple enough that you should be able to make the requests and parse the results without the aid of a third party library.
-
-You do not need to support Internet Explorer. 
-
-## Acceptance Criteria
-* Application must satisify the above listed criteria
-* Applications must be well structured with clear separation of concerns. Code must be representative of production level quality. 
-* Application must contain documentation on how to build and run the app. Apps that do not build and run on our machines will not be considered. 
-* Commits must be clear in their intent and well structured
-* If you made any design decisions of note, please document them with rational as to why that decision was made
-
-## Other Considerations
-* Spotify will throttle their api if you make too many requests in a 30 second period. How would you avoid making too many requests, and how would you handle a `429` if received?
+- I'm Using spotify API authorization for code flow https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
+So, you need to login on your spotify account to use this application.
+- Despite of the requirement to not use any third party libraries to make requests, I've used an angular library: HttpClient. It is the recommended for angular team. Otherwise I would have to make a workaround to use Observables properly. I could use javascript fetch, but It's not the best solution with angular.
+- For caching I've used httpInterceptor to check if a GET request has already been done. If not, make the request and save on localStorage. Otherwise read from localStorage and return the request result.
+- For Error handling I've used httpInterceptor to check if some request returned 401, in this case the user token has been expired, then they need to login again. Also, I'm checking for 429 result. In this case I show an alert to user, and start a counter with 30 seconds. New requests will be only made after this 30 seconds.
+- In case of token expiration, all localStorage data is cleared.
